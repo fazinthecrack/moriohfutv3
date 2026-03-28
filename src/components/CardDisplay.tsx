@@ -41,11 +41,12 @@ interface CardDisplayProps {
   index?: number;
   animate?: boolean;
   compact?: boolean;
+  size?: 'default' | 'large';
   onQuickSell?: (card: Card, price: number) => void;
   onMarketSell?: (card: Card, price: number) => void;
 }
 
-export function CardDisplay({ card, index = 0, animate = false, compact = false, onQuickSell, onMarketSell }: CardDisplayProps) {
+export function CardDisplay({ card, index = 0, animate = false, compact = false, size = 'default', onQuickSell, onMarketSell }: CardDisplayProps) {
   const [showDetail, setShowDetail] = useState(false);
 
   if (compact) {
@@ -78,7 +79,7 @@ export function CardDisplay({ card, index = 0, animate = false, compact = false,
         animate={{ scale: 1, rotateY: 0, opacity: 1 }}
         transition={{ delay: index * 0.18, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         onClick={() => setShowDetail(true)}
-        className="rounded-xl overflow-hidden w-44 border-0 bg-transparent cursor-pointer transition-transform duration-300 ease-out hover:scale-105"
+        className={`rounded-xl overflow-hidden ${size === 'large' ? 'w-56' : 'w-44'} border-0 bg-transparent cursor-pointer transition-transform duration-300 ease-out hover:scale-105`}
       >
         {card.image_url ? (
           <img src={card.image_url} alt={card.name} className="w-full h-auto object-contain" />
