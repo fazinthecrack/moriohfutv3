@@ -113,13 +113,12 @@ export default function Packs() {
     }
     setOpening(true);
     
-    // Deduct credits
-    const { error: creditError } = await supabase
-      .from('profiles')
-      .update({ credits: profile.credits - PREMIUM_PACK_COST })
-      .eq('user_id', user.id);
+    // Deduct credits via server-side RPC
+    const { data, error: creditError } = await supabase.rpc('open_premium_pack', { cost: PREMIUM_PACK_COST });
     
     if (creditError) { toast.error('Erreur crédits'); setOpening(false); return; }
+    const result = data as any;
+    if (!result.success) { toast.error(result.error); setOpening(false); return; }
     
     const newCards = generatePackWithRates('premium');
     setCards(newCards);
@@ -141,9 +140,9 @@ export default function Packs() {
             className="flex flex-col items-center gap-8"
           >
             <h2 className="text-xl font-display tracking-widest text-primary">Ton Pack</h2>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
               {cards.map((card, i) => (
-                <CardDisplay key={card.id} card={card} index={i} animate />
+                <CardDisplay key={card.id} card={card} index={i} animate size="large" />
               ))}
             </div>
             <motion.button
@@ -184,7 +183,7 @@ export default function Packs() {
                     <motion.img
                       src={packImage}
                       alt="Pack gratuit"
-                      className="h-72 object-contain drop-shadow-2xl transition-all duration-300 group-hover:drop-shadow-[0_0_40px_hsl(207,73%,28%,0.4)]"
+                      className="h-80 sm:h-96 object-contain drop-shadow-2xl transition-all duration-300 group-hover:drop-shadow-[0_0_40px_hsl(207,73%,28%,0.4)]"
                       animate={{ y: [0, -8, 0] }}
                       transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
                     />
@@ -194,8 +193,8 @@ export default function Packs() {
                   </motion.button>
                 ) : (
                   <div className="text-center space-y-3">
-                    <div className="h-72 flex items-center justify-center opacity-40">
-                      <img src={packImage} alt="Pack" className="h-72 object-contain grayscale" />
+                   <div className="h-80 sm:h-96 flex items-center justify-center opacity-40">
+                      <img src={packImage} alt="Pack" className="h-80 sm:h-96 object-contain grayscale" />
                     </div>
                     <p className="font-mono-stats text-2xl text-primary tracking-widest">{countdown}</p>
                   </div>
@@ -215,7 +214,7 @@ export default function Packs() {
                   <motion.img
                     src={packImage}
                     alt="Pack premium"
-                    className="h-72 object-contain drop-shadow-2xl transition-all duration-300 group-hover:drop-shadow-[0_0_40px_hsl(45,80%,50%,0.4)] hue-rotate-[30deg] saturate-150"
+                    className="h-80 sm:h-96 object-contain drop-shadow-2xl transition-all duration-300 group-hover:drop-shadow-[0_0_40px_hsl(45,80%,50%,0.4)] hue-rotate-[30deg] saturate-150"
                     animate={{ y: [0, -6, 0] }}
                     transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
                   />
