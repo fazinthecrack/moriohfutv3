@@ -301,8 +301,13 @@ export type Database = {
     }
     Functions: {
       buy_card: { Args: { listing_id: string }; Returns: Json }
+      open_premium_pack: { Args: { cost: number }; Returns: Json }
       quick_sell_card: {
         Args: { card_id: string; sell_price: number }
+        Returns: Json
+      }
+      update_listing_price: {
+        Args: { listing_id: string; new_price: number }
         Returns: Json
       }
     }
