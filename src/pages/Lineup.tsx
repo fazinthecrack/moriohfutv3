@@ -417,7 +417,7 @@ export default function Lineup() {
       </AnimatePresence>
 
       {/* Pitch */}
-      <div className="relative w-full aspect-[3/4] max-w-lg mx-auto rounded-2xl overflow-hidden border border-border/20">
+      <div className="relative w-full aspect-[3/4] max-w-2xl mx-auto rounded-2xl overflow-hidden border border-border/20">
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(140,35%,18%)] to-[hsl(140,30%,10%)]" />
         <div className="absolute top-1/2 left-0 right-0 h-px bg-foreground/15" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-foreground/15" />
@@ -445,7 +445,7 @@ export default function Lineup() {
             >
               {card ? (
                 <div className="relative">
-                  <div className={`relative w-14 h-[4.5rem] rounded-lg border-2 ${rarityBorder[card.rarity] || ''} ${rarityGlow[card.rarity] || ''} bg-card/90 backdrop-blur overflow-hidden transition-transform group-hover:scale-110 flex items-center justify-center`}>
+                  <div className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-lg border-2 ${rarityBorder[card.rarity] || ''} ${rarityGlow[card.rarity] || ''} bg-card/90 backdrop-blur overflow-hidden transition-transform group-hover:scale-110 flex items-center justify-center`}>
                     <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-destructive flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
                       <X className="w-2.5 h-2.5 text-destructive-foreground" />
                     </div>
@@ -461,7 +461,7 @@ export default function Lineup() {
                   </div>
                 </div>
               ) : (
-                <div className={`w-14 h-[4.5rem] rounded-lg border-2 border-dashed ${
+                <div className={`w-16 h-20 sm:w-20 sm:h-24 rounded-lg border-2 border-dashed ${
                   selecting?.type === 'lineup' && selecting.index === idx ? 'border-primary bg-primary/20 scale-110' : 'border-foreground/20'
                 } flex flex-col items-center justify-center gap-0.5 transition-all group-hover:border-primary/50 group-hover:bg-primary/5`}>
                   <span className="font-display text-[10px] text-foreground/60">{slot.label}</span>
@@ -492,7 +492,7 @@ export default function Lineup() {
               }`}
             >
               {card ? (
-                <div className={`relative w-14 h-[4.5rem] rounded-lg border-2 ${rarityBorder[card.rarity] || ''} bg-card/90 overflow-hidden transition-transform group-hover:scale-105 flex items-center justify-center`}>
+                <div className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-lg border-2 ${rarityBorder[card.rarity] || ''} bg-card/90 overflow-hidden transition-transform group-hover:scale-105 flex items-center justify-center`}>
                   <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-destructive flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
                     <X className="w-2.5 h-2.5 text-destructive-foreground" />
                   </div>
@@ -503,7 +503,7 @@ export default function Lineup() {
                   )}
                 </div>
               ) : (
-                <div className="w-14 h-[4.5rem] rounded-lg border-2 border-dashed border-foreground/15 flex items-center justify-center transition-all group-hover:border-primary/40">
+                <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-lg border-2 border-dashed border-foreground/15 flex items-center justify-center transition-all group-hover:border-primary/40">
                   <span className="text-foreground/30 text-xs">+</span>
                 </div>
               )}
