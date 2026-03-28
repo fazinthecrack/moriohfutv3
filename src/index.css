@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Legend';
+  src: url('/src/assets/fonts/legend-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 220 15% 6%;
+    --foreground: 0 0% 95%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 207 73% 28%;
+    --primary-foreground: 0 0% 95%;
+
+    --secondary: 220 12% 16%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 220 12% 14%;
+    --muted-foreground: 220 10% 50%;
+
+    --accent: 207 73% 28%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 12% 18%;
+    --input: 220 12% 18%;
+    --ring: 207 73% 28%;
+
+    --radius: 0.5rem;
+
+    /* Rarities */
+    --rarity-common: 220 10% 55%;
+    --rarity-rare: 210 80% 55%;
+    --rarity-epic: 280 70% 60%;
+    --rarity-legendary: 45 95% 55%;
+
+    /* FC-style gradients */
+    --gradient-nav: linear-gradient(180deg, hsl(220 15% 8%) 0%, hsl(220 15% 5%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 15% 12%) 0%, hsl(220 15% 8%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(207 73% 28%) 0%, hsl(207 80% 22%) 100%);
+
+    --sidebar-background: 220 15% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 207 73% 28%;
+    --sidebar-primary-foreground: 0 0% 95%;
+    --sidebar-accent: 220 12% 16%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 220 12% 18%;
+    --sidebar-ring: 207 73% 28%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Legend', 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Legend', 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .font-mono-stats {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .card-rarity-common {
+    border-color: hsl(var(--rarity-common));
+  }
+  .card-rarity-rare {
+    border-color: hsl(var(--rarity-rare));
+    box-shadow: 0 0 20px hsl(var(--rarity-rare) / 0.3);
+  }
+  .card-rarity-epic {
+    border-color: hsl(var(--rarity-epic));
+    box-shadow: 0 0 25px hsl(var(--rarity-epic) / 0.4);
+  }
+  .card-rarity-legendary {
+    border-color: hsl(var(--rarity-legendary));
+    box-shadow: 0 0 35px hsl(var(--rarity-legendary) / 0.5);
+  }
+
+  .bg-rarity-common { background-color: hsl(var(--rarity-common)); }
+  .bg-rarity-rare { background-color: hsl(var(--rarity-rare)); }
+  .bg-rarity-epic { background-color: hsl(var(--rarity-epic)); }
+  .bg-rarity-legendary { background-color: hsl(var(--rarity-legendary)); }
+
+  .text-rarity-common { color: hsl(var(--rarity-common)); }
+  .text-rarity-rare { color: hsl(var(--rarity-rare)); }
+  .text-rarity-epic { color: hsl(var(--rarity-epic)); }
+  .text-rarity-legendary { color: hsl(var(--rarity-legendary)); }
+
+  .fc-glow {
+    box-shadow: 0 0 30px hsl(207 73% 28% / 0.3);
+  }
+
+  .glass-panel {
+    background: hsl(220 15% 10% / 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(220 12% 20% / 0.5);
+  }
+}

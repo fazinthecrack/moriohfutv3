@@ -1,0 +1,1 @@
+ALTER TABLE public.user_cards ADD COLUMN IF NOT EXISTS is_tradeable boolean NOT NULL DEFAULT true;
