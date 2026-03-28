@@ -6,7 +6,7 @@ import { CardDisplay } from '@/components/CardDisplay';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Plus, Tag } from 'lucide-react';
+import { Plus, Tag, Pencil } from 'lucide-react';
 import { formatCoins } from '@/lib/quick-sell';
 import type { Rarity, Position, Card } from '@/lib/cards';
 
@@ -58,6 +58,8 @@ export default function Market() {
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [price, setPrice] = useState('');
   const [loading, setLoading] = useState(true);
+  const [editingListing, setEditingListing] = useState<string | null>(null);
+  const [editPrice, setEditPrice] = useState('');
 
   useEffect(() => {
     fetchListings();
@@ -121,6 +123,19 @@ export default function Market() {
     setPrice('');
     fetchListings();
     fetchMyCards();
+  };
+
+  const updateListingPrice = async (listingId: string) => {
+    const newPrice = parseInt(editPrice);
+    if (isNaN(newPrice) || newPrice <= 0) { toast.error('Prix invalide'); return; }
+    const { data, error } = await supabase.rpc('update_listing_price', { listing_id: listingId, new_price: newPrice });
+    if (error) { toast.error('Erreur'); return; }
+    const result = data as any;
+    if (!result.success) { toast.error(result.error); return; }
+    toast.success('Prix mis à jour !');
+    setEditingListing(null);
+    setEditPrice('');
+    fetchListings();
   };
 
   const buyCard = async (listingId: string, listingPrice: number) => {
@@ -215,13 +230,37 @@ export default function Market() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs text-muted-foreground">{listing.sellerUsername}</p>
-                  <p className="text-lg font-bold font-mono-stats text-primary">{formatCoins(listing.price)} <span className="text-xs text-muted-foreground">cr</span></p>
+                  {editingListing === listing.id ? (
+                    <div className="flex gap-1.5 items-center mt-1">
+                      <Input
+                        type="number"
+                        value={editPrice}
+                        onChange={e => setEditPrice(e.target.value)}
+                        className="w-24 h-8 text-xs bg-background/50 border-border/30"
+                        placeholder="Nouveau prix"
+                        min={1}
+                      />
+                      <Button size="sm" className="h-8 text-xs" onClick={() => updateListingPrice(listing.id)}>OK</Button>
+                      <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={() => setEditingListing(null)}>✕</Button>
+                    </div>
+                  ) : (
+                    <p className="text-lg font-bold font-mono-stats text-primary">{formatCoins(listing.price)} <span className="text-xs text-muted-foreground">cr</span></p>
+                  )}
                 </div>
-                {user && listing.seller_id !== user.id && (
+                {user && listing.seller_id === user.id && editingListing !== listing.id ? (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => { setEditingListing(listing.id); setEditPrice(listing.price.toString()); }}
+                    className="text-xs"
+                  >
+                    <Pencil className="w-3.5 h-3.5" />
+                  </Button>
+                ) : user && listing.seller_id !== user.id ? (
                   <Button size="sm" onClick={() => buyCard(listing.id, listing.price)} className="font-display tracking-wider text-xs">
                     Acheter
                   </Button>
-                )}
+                ) : null}
               </div>
             </motion.div>
           ))}
