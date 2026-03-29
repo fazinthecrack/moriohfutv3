@@ -50,17 +50,13 @@ export default function Admin() {
 
   const handleCredits = async (userId: string) => {
     const amount = parseInt(creditAmount);
-    if (!amount) { toast.error('Montant invalide'); return; }
+    if (!amount && amount !== 0) { toast.error('Montant invalide'); return; }
 
     if (creditAction === 'set') {
-      const { error } = await supabase
-        .from('profiles')
-        .update({ credits: amount })
-        .eq('user_id', userId);
+      const { data, error } = await supabase.rpc('admin_set_credits', { target_user_id: userId, new_credits: amount });
       if (error) { toast.error('Erreur'); return; }
       toast.success(`Crédits définis à ${formatCoins(amount)}`);
     } else {
-      // Use RPC approach: read then update via profiles
       const { data: profile } = await supabase
         .from('profiles')
         .select('credits')
@@ -68,10 +64,7 @@ export default function Admin() {
         .single();
       if (!profile) { toast.error('Profil non trouvé'); return; }
       const newCredits = profile.credits + amount;
-      const { error } = await supabase
-        .from('profiles')
-        .update({ credits: newCredits })
-        .eq('user_id', userId);
+      const { data, error } = await supabase.rpc('admin_set_credits', { target_user_id: userId, new_credits: newCredits });
       if (error) { toast.error('Erreur'); return; }
       toast.success(`+${formatCoins(amount)} crédits ajoutés`);
     }
