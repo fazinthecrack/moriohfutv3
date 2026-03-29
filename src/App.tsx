@@ -12,7 +12,10 @@ import Lineup from "./pages/Lineup";
 import Inventory from "./pages/Inventory";
 import Versus from "./pages/Versus";
 import Auth from "./pages/Auth";
+import Showcase from "./pages/Showcase";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import { PotmBanner } from "@/components/PotmBanner";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +23,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-background"><div className="animate-pulse text-muted-foreground">Chargement...</div></div>;
   if (!user) return <Navigate to="/auth" replace />;
-  return <Layout>{children}</Layout>;
+  return <Layout><PotmBanner />{children}</Layout>;
 }
 
 const AppRoutes = () => (
@@ -32,6 +35,8 @@ const AppRoutes = () => (
     <Route path="/market" element={<ProtectedRoute><Market /></ProtectedRoute>} />
     <Route path="/lineup" element={<ProtectedRoute><Lineup /></ProtectedRoute>} />
     <Route path="/versus" element={<ProtectedRoute><Versus /></ProtectedRoute>} />
+    <Route path="/showcase" element={<ProtectedRoute><Showcase /></ProtectedRoute>} />
+    <Route path="/admin" element={<Admin />} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

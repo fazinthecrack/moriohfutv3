@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { Home, Store, Package, LogOut, Users, Backpack, Swords } from 'lucide-react';
+import { Home, Store, Package, LogOut, Users, Backpack, Swords, LayoutGrid } from 'lucide-react';
 import logoWide from '@/assets/logo-wide.png';
 import logoSmall from '@/assets/logo-small.png';
 
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { path: '/lineup', label: 'Compo', icon: Users },
   { path: '/versus', label: '1v1', icon: Swords },
   { path: '/market', label: 'Marché', icon: Store },
+  { path: '/showcase', label: 'Salon', icon: LayoutGrid },
 ];
 
 export function Navbar() {
