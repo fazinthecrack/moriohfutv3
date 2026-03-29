@@ -6,7 +6,7 @@ import { FORMATIONS, isPositionCompatible, POSITION_LABELS } from '@/lib/cards';
 import type { Position } from '@/lib/cards';
 import { isPositionCompatibleWithAlt, calculateTeamChemistry, getCoachChemBoost, COACHES, type Coach } from '@/lib/chemistry';
 import { CLUB_LOGOS } from '@/lib/club-logos';
-import { ChevronDown, X, AlertTriangle, Shield, Pencil, Users, Armchair, GraduationCap, Sparkles } from 'lucide-react';
+import { ChevronDown, X, TriangleAlert as AlertTriangle, Shield, Pencil, Users, Armchair, GraduationCap, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface UserCard {
@@ -575,6 +575,8 @@ export default function Lineup() {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+    </div>
     </div>
   );
 }
