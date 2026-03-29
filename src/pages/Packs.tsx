@@ -222,9 +222,9 @@ export default function Packs() {
                     <Coins className="w-3.5 h-3.5 text-amber-400" />
                     <span className="font-mono-stats text-sm text-amber-400">{formatCoins(PREMIUM_PACK_COST)}</span>
                   </div>
-                  <p className="text-center text-amber-300/60 text-[10px] mt-1">
-                    Cartes non échangeables
-                  </p>
+                   <p className="text-center text-green-400/60 text-[10px] mt-1">
+                     Cartes échangeables
+                   </p>
                 </motion.button>
               </div>
             </div>

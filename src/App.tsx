@@ -11,6 +11,7 @@ import Market from "./pages/Market";
 import Lineup from "./pages/Lineup";
 import Inventory from "./pages/Inventory";
 import Versus from "./pages/Versus";
+import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
 import Showcase from "./pages/Showcase";
 import Admin from "./pages/Admin";
@@ -35,6 +36,7 @@ const AppRoutes = () => (
     <Route path="/market" element={<ProtectedRoute><Market /></ProtectedRoute>} />
     <Route path="/lineup" element={<ProtectedRoute><Lineup /></ProtectedRoute>} />
     <Route path="/versus" element={<ProtectedRoute><Versus /></ProtectedRoute>} />
+    <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
     <Route path="/showcase" element={<ProtectedRoute><Showcase /></ProtectedRoute>} />
     <Route path="/admin" element={<Admin />} />
     <Route path="*" element={<NotFound />} />
