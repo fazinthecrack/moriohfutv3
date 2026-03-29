@@ -14,6 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
+      custom_card_pool: {
+        Row: {
+          created_at: string
+          emoji: string
+          free_odds: number
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name: string
+          overall: number
+          position: string
+          premium_odds: number
+          quick_sell_max: number
+          quick_sell_min: number
+          rarity: string
+          stats_def: number
+          stats_dri: number
+          stats_pas: number
+          stats_phy: number
+          stats_rap: number
+          stats_tir: number
+        }
+        Insert: {
+          created_at?: string
+          emoji?: string
+          free_odds?: number
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name: string
+          overall?: number
+          position?: string
+          premium_odds?: number
+          quick_sell_max?: number
+          quick_sell_min?: number
+          rarity?: string
+          stats_def?: number
+          stats_dri?: number
+          stats_pas?: number
+          stats_phy?: number
+          stats_rap?: number
+          stats_tir?: number
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          free_odds?: number
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name?: string
+          overall?: number
+          position?: string
+          premium_odds?: number
+          quick_sell_max?: number
+          quick_sell_min?: number
+          rarity?: string
+          stats_def?: number
+          stats_dri?: number
+          stats_pas?: number
+          stats_phy?: number
+          stats_rap?: number
+          stats_tir?: number
+        }
+        Relationships: []
+      }
+      game_sessions: {
+        Row: {
+          created_at: string
+          credits_reward: number
+          guest_id: string | null
+          guest_overall: number
+          guest_score: number
+          guest_tactics: Json
+          host_id: string
+          host_overall: number
+          host_score: number
+          host_tactics: Json
+          id: string
+          round: number
+          status: string
+          winner_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          credits_reward?: number
+          guest_id?: string | null
+          guest_overall?: number
+          guest_score?: number
+          guest_tactics?: Json
+          host_id: string
+          host_overall?: number
+          host_score?: number
+          host_tactics?: Json
+          id?: string
+          round?: number
+          status?: string
+          winner_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          credits_reward?: number
+          guest_id?: string | null
+          guest_overall?: number
+          guest_score?: number
+          guest_tactics?: Json
+          host_id?: string
+          host_overall?: number
+          host_score?: number
+          host_tactics?: Json
+          id?: string
+          round?: number
+          status?: string
+          winner_id?: string | null
+        }
+        Relationships: []
+      }
       marketplace_listings: {
         Row: {
           buyer_id: string | null
@@ -170,6 +287,7 @@ export type Database = {
         Row: {
           created_at: string
           emoji: string
+          evolution_level: number
           id: string
           image_url: string | null
           is_listed: boolean
@@ -188,10 +306,12 @@ export type Database = {
           stat_tir: number
           stat_vit: number
           user_id: string
+          xp: number
         }
         Insert: {
           created_at?: string
           emoji?: string
+          evolution_level?: number
           id?: string
           image_url?: string | null
           is_listed?: boolean
@@ -210,10 +330,12 @@ export type Database = {
           stat_tir?: number
           stat_vit?: number
           user_id: string
+          xp?: number
         }
         Update: {
           created_at?: string
           emoji?: string
+          evolution_level?: number
           id?: string
           image_url?: string | null
           is_listed?: boolean
@@ -232,6 +354,7 @@ export type Database = {
           stat_tir?: number
           stat_vit?: number
           user_id?: string
+          xp?: number
         }
         Relationships: []
       }
@@ -305,9 +428,15 @@ export type Database = {
         Returns: Json
       }
       buy_card: { Args: { listing_id: string }; Returns: Json }
+      evolve_card: { Args: { card_id: string }; Returns: Json }
+      join_game: { Args: { session_id: string }; Returns: Json }
       open_premium_pack: { Args: { cost: number }; Returns: Json }
       quick_sell_card: {
         Args: { card_id: string; sell_price: number }
+        Returns: Json
+      }
+      submit_tactic: {
+        Args: { session_id: string; tactic: string }
         Returns: Json
       }
       update_listing_price: {

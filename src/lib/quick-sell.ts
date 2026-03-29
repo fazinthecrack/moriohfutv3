@@ -5,20 +5,20 @@ export interface QuickSellRange {
 }
 
 export const QUICK_SELL_VALUES: Record<string, QuickSellRange> = {
-  'Delahaye_79': { min: 1200, max: 2000 },
-  'Guillaume_88': { min: 18000, max: 28000 },
-  'Garcia_83': { min: 2500, max: 4500 },
-  'Innocenti_86': { min: 7000, max: 11000 },
-  'Rippon_84': { min: 12000, max: 20000 },
-  'Allaire_88': { min: 14000, max: 22000 },
-  'Allaire_77': { min: 1200, max: 2000 },
-  "L'Anthoen_86": { min: 8000, max: 14000 },
-  'Vanelle_74': { min: 600, max: 1200 },
-  'Ribeiro_85': { min: 9000, max: 15000 },
-  'De Sieter_90': { min: 30000, max: 45000 },
-  'Sedairia_86': { min: 15000, max: 25000 },
-  'Blot_82': { min: 3500, max: 6000 },
-  'Bourderioux_87': { min: 11000, max: 19000 },
+  'Delahaye_79': { min: 1500, max: 2500 },
+  'Vanelle_74': { min: 700, max: 1300 },
+  'Allaire_77': { min: 1800, max: 3200 },
+  'Garcia_83': { min: 9000, max: 15000 },
+  "L'Anthoen_86": { min: 22000, max: 34000 },
+  'Innocenti_86': { min: 19000, max: 31000 },
+  'De Sieter_90': { min: 42000, max: 68000 },
+  'Rippon_84': { min: 14000, max: 22000 },
+  'Guillaume_88': { min: 27000, max: 43000 },
+  'Ribeiro_85': { min: 17000, max: 27000 },
+  'Blot_82': { min: 7500, max: 12500 },
+  'Sedairia_86': { min: 18000, max: 30000 },
+  'Bourderioux_87': { min: 23000, max: 37000 },
+  'Allaire_88': { min: 29000, max: 47000 },
 };
 
 export function getQuickSellKey(name: string, overall: number): string {
