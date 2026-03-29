@@ -122,7 +122,7 @@ export default function Packs() {
     
     const newCards = generatePackWithRates('premium');
     setCards(newCards);
-    await insertCards(newCards, false); // NOT tradeable
+    await insertCards(newCards, true); // tradeable
     await refreshProfile();
     setOpening(false);
     toast.success('Pack Premium ouvert !');

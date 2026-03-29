@@ -300,6 +300,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_set_credits: {
+        Args: { new_credits: number; target_user_id: string }
+        Returns: Json
+      }
       buy_card: { Args: { listing_id: string }; Returns: Json }
       open_premium_pack: { Args: { cost: number }; Returns: Json }
       quick_sell_card: {
