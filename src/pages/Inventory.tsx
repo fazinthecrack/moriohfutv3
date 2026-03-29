@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Search, X, Zap, Store, Lock } from 'lucide-react';
+import { Search, X, Zap, Store, Lock, Sparkles, ArrowUp } from 'lucide-react';
 import { getQuickSellRange, getRandomQuickSellPrice, formatCoins } from '@/lib/quick-sell';
+import { getEvolutionInfo, EVOLUTION_THRESHOLDS } from '@/lib/evolution';
 import { toast } from 'sonner';
 
 interface UserCard {
@@ -22,6 +23,8 @@ interface UserCard {
   overall: number;
   is_listed: boolean;
   is_tradeable: boolean;
+  xp: number;
+  evolution_level: number;
 }
 
 export default function Inventory() {
@@ -203,6 +206,54 @@ export default function Inventory() {
               </div>
 
               <div className="p-4 space-y-3">
+                {/* Evolution section */}
+                {(() => {
+                  const evo = getEvolutionInfo(selectedCard.evolution_level, selectedCard.xp);
+                  return (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-primary" />
+                          <span className="font-display text-xs tracking-wider text-primary">
+                            Évolution {selectedCard.evolution_level > 0 ? `Niv.${selectedCard.evolution_level}` : ''}
+                          </span>
+                        </div>
+                        <span className="font-mono-stats text-[10px] text-muted-foreground">{selectedCard.xp} XP</span>
+                      </div>
+                      {!evo.maxLevel && evo.next && (
+                        <div className="space-y-1">
+                          <div className="h-1.5 rounded-full bg-secondary/50 overflow-hidden">
+                            <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${evo.progress}%` }} />
+                          </div>
+                          <p className="text-[10px] text-muted-foreground text-right">{selectedCard.xp}/{evo.next.xpNeeded} XP</p>
+                        </div>
+                      )}
+                      {evo.canEvolve && (
+                        <button
+                          onClick={async () => {
+                            const { data } = await supabase.rpc('evolve_card', { card_id: selectedCard.id } as any);
+                            const r = data as any;
+                            if (r?.success) {
+                              toast.success(`Carte évoluée au niveau ${r.new_level} !`);
+                              setSelectedCard(null);
+                              loadCards();
+                            } else {
+                              toast.error(r?.error || 'Erreur');
+                            }
+                          }}
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary/20 border border-primary/30 hover:bg-primary/30 transition-all"
+                        >
+                          <ArrowUp className="w-4 h-4 text-primary" />
+                          <span className="font-display text-xs tracking-wider text-primary">Évoluer (+1 stats)</span>
+                        </button>
+                      )}
+                      {evo.maxLevel && (
+                        <p className="text-[10px] text-center text-amber-400 font-display tracking-wider">Niveau max atteint ✨</p>
+                      )}
+                    </div>
+                  );
+                })()}
+
                 {tradeable ? (
                   <>
                     <button
