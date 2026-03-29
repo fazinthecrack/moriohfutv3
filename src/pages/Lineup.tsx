@@ -416,6 +416,10 @@ export default function Lineup() {
         )}
       </AnimatePresence>
 
+      {/* Main layout: pitch left, picker right on desktop */}
+      <div className="flex flex-col lg:flex-row gap-4">
+      {/* Left column: Pitch + Bench */}
+      <div className="flex-1 space-y-4">
       {/* Pitch */}
       <div className="relative w-full aspect-[3/4] max-w-2xl mx-auto rounded-2xl overflow-hidden border border-border/20">
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(140,35%,18%)] to-[hsl(140,30%,10%)]" />
